@@ -3,7 +3,7 @@ pragma solidity ^0.5.0;
 import "./SafeMath.sol";
 
 
-contract Games is Model {
+contract Games {
     using SafeMath for uint256;
 
     string public symbol;
