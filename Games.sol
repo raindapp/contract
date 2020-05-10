@@ -6,10 +6,6 @@ import "./SafeMath.sol";
 contract Games {
     using SafeMath for uint256;
 
-    string public symbol;
-    string public name;
-    uint8 public decimals;
-
     constructor() public {}
 
     function() external payable {}
@@ -280,7 +276,7 @@ contract Games {
         } while (_pid != address(0) && _base_honor <= 5);
     }
 
-    function assignInsurance() public payable onlyManage {
+    function assignInsurance() public payable {
         uint256 _amount;
         uint256 _amount_2 = 0;
 
@@ -328,7 +324,7 @@ contract Games {
         }
     }
 
-    function assignDividend() public payable onlyStatus {
+    function assignDividend() public payable {
         if (today > users[msg.sender].today_at) {
             uint256 _amount;
             uint256 dividend_num;
@@ -374,7 +370,7 @@ contract Games {
         }
     }
 
-    function assignChampion() internal onlyStatus {
+    function assignChampion() internal {
         if (today - users[msg.sender].today_at > 0) {
             uint256 _rate;
             uint256 _amount;
@@ -403,7 +399,7 @@ contract Games {
         }
     }
 
-    function assignDividendSuper() internal onlyStatus {
+    function assignDividendSuper() internal {
         if (internal_users[msg.sender] == false && super_users.length > 0) {
             uint256 _amount = pool_super[month_last].div(super_users.length);
             if (_amount > 0) {
@@ -417,7 +413,7 @@ contract Games {
         }
     }
 
-    function grabRedEnvelope() public payable onlyStatus {
+    function grabRedEnvelope() public payable {
         require(pool_envelope > 0, "#no fund pool#");
         require(envelope_start <= now, "#it's not time yet#");
         require(envelope_end > now, "#red envelope expired#");
@@ -488,7 +484,7 @@ contract Games {
     }
 
     //抢红包 清0
-    function grabRedEnvelope(address _id) internal onlySafe {
+    function grabRedEnvelope(address _id) internal {
         require(pool_envelope > 0, "no fund pool");
         require(envelope_end <= now, "");
 
@@ -500,7 +496,7 @@ contract Games {
         pool_envelope = 0;
     }
 
-    function grabRedEnvelope(uint8 _type) public onlyManage {
+    function grabRedEnvelope(uint8 _type) public {
         require(pool_envelope > 0, "no fund pool");
         require(envelope_end <= now, "");
         if (_type == 1) {
@@ -510,18 +506,18 @@ contract Games {
         }
     }
 
-    function todayTime(uint256 _time) public onlyManage {
+    function todayTime(uint256 _time) public {
         require(_time > today, "");
         today = _time;
     }
 
-    function monthTime(uint256 _time) public onlyManage {
+    function monthTime(uint256 _time) public {
         require(month < _time, "");
         month_last = month;
         month = _time;
     }
 
-    function userDomain(string memory _domain) public onlyStatus {
+    function userDomain(string memory _domain) public {
         domain_users[_domain] = msg.sender;
         users[msg.sender].domain = _domain;
     }

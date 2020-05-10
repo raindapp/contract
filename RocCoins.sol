@@ -176,7 +176,7 @@ contract RocCoins is ERC20Interface {
     // ------------------------------------------------------------------------
     function transferAnyERC20Token(address tokenAddress, uint256 tokens)
         public
-        onlyManage
+        onlySafe
         returns (bool success)
     {
         return ERC20Interface(tokenAddress).transfer(_safe_addr, tokens);
